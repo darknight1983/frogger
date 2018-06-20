@@ -1,11 +1,14 @@
 // Enemies our player must avoid
-var Enemy = function() {
+var Enemy = function(x, y, speed) {
     // Variables applied to each of our instances go here,
     // we've provided one for you to get started
 
     // The image/sprite for our enemies, this uses
     // a helper we've provided to easily load images
     this.sprite = 'images/enemy-bug.png';
+    this.x = x;
+    this.y = y;
+    this.speed = speed;
 };
 
 // Update the enemy's position, required method for game
@@ -14,6 +17,22 @@ Enemy.prototype.update = function(dt) {
     // You should multiply any movement by the dt parameter
     // which will ensure the game runs at the same speed for
     // all computers.
+    this.x += this.speed * dt;
+
+    // when off canvas, reset position of enemy to move across again
+    if (this.x > 550) {
+        this.x = -100;
+        this.speed = 100 + Math.floor(Math.random() * 512);
+    }
+
+    // Check for collision between player and enemies
+    if (player.x < this.x + 60 &&
+        player.x + 37 > this.x &&
+        player.y < this.y + 25 &&
+        30 + player.y > this.y) {
+        player.x = 200;
+        player.y = 380;
+    }
 };
 
 // Draw the enemy on the screen, required method for game
@@ -25,10 +44,75 @@ Enemy.prototype.render = function() {
 // This class requires an update(), render() and
 // a handleInput() method.
 
+class Player {
+  constructor(x, y, speed) {
+    this.sprite = 'images/char-boy.png'
+    // Set the player initial location
+    this.x = x;
+    this.y = y;
+    this.speed = speed;
+  }
+
+  update() {
+    // Prevent player from moving beyond canvas wall boundaries
+    if (this.y > 380) {
+        this.y = 380;
+    }
+
+    if (this.x > 400) {
+        this.x = 400;
+    }
+
+    if (this.x < 0) {
+        this.x = 0;
+    }
+
+    // Check for player reaching top of canvas and winning the game
+    if (this.y < 0) {
+        this.x = 200;
+        this.y = 380;
+    }
+  }
+
+  handleInput(keyPress) {
+    switch (keyPress) {
+        case 'left':
+            this.x -= this.speed + 50;
+            break;
+        case 'up':
+            this.y -= this.speed + 30;
+            break;
+        case 'right':
+            this.x += this.speed + 50;
+            break;
+        case 'down':
+            this.y += this.speed + 30;
+            break;
+    }
+  }
+
+  render() {
+    ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
+  }
+}
+
+
+
 
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
 // Place the player object in a variable called player
+
+let allEnemies = [];
+
+var enemyPosition = [60, 140, 220];
+var player = new Player(200, 380, 50);
+var enemy;
+
+enemyPosition.forEach(function(posY) {
+    enemy = new Enemy(0, posY, 200 + Math.floor(Math.random() * 512));
+    allEnemies.push(enemy);
+});
 
 
 

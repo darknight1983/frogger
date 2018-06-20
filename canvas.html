@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Canvas</title>
+  </head>
+  <body>
+    <canvas id="canvas" width="500px" height="500px"></canvas>
+
+    <script>
+        let c = document.getElementById('canvas')
+        let ctx = c.getContext('2d')
+
+        let image = new Image();
+        let image2 = new Image()
+
+        image.src = 'images/char-boy.png'
+        image2.src = 'images/char-horn-girl.png'
+
+        window.onload = function() {
+          console.log('We are loaded')
+          ctx.drawImage(image, 100, 100)
+          ctx.drawImage(image2, 300, 300)
+        }
+
+
+
+    </script>
+  </body>
+</html>
