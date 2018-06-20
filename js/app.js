@@ -96,6 +96,18 @@ class Player {
   }
 }
 
+class Gem {
+  constructor(x, y, speed) {
+    this.x = x;
+    this.y = y;
+    this.speed = spend;
+  }
+  
+  render() {
+    ctx.drawImage(Resources.get(this.sprite), this.x, this.y)
+  }
+}
+
 
 
 
