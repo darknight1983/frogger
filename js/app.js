@@ -1,3 +1,4 @@
+'use strict';
 // Enemies our player must avoid
 var Enemy = function(x, y, speed) {
     // Variables applied to each of our instances go here,
@@ -102,7 +103,7 @@ class Gem {
     this.y = y;
     this.speed = spend;
   }
-  
+
   render() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y)
   }
@@ -117,9 +118,9 @@ class Gem {
 
 let allEnemies = [];
 
-var enemyPosition = [60, 140, 220];
-var player = new Player(200, 380, 50);
-var enemy;
+let enemyPosition = [60, 140, 220];
+let player = new Player(200, 380, 50);
+let enemy;
 
 enemyPosition.forEach(function(posY) {
     enemy = new Enemy(0, posY, 200 + Math.floor(Math.random() * 512));
